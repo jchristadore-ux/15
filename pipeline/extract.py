@@ -46,12 +46,32 @@ def sharpness(gray):
     return float(out.var())
 
 
+def load_valid_ids():
+    """Real Drive ids. Needed because ids may themselves contain '__',
+    so splitting a stored filename on the first '__' truncates them."""
+    ids = []
+    p = os.path.join(WORK, "all_full.txt")
+    if os.path.exists(p):
+        ids = [l.split("\t")[0].strip() for l in open(p) if l.strip()]
+    # longest first so a prefix id can never shadow a longer one
+    return sorted(ids, key=len, reverse=True)
+
+
+def split_stored(base, valid):
+    for v in valid:
+        if base.startswith(v + "__"):
+            return v, base[len(v) + 2:]
+    fid, _, title = base.partition("__")
+    return fid, title
+
+
 def main():
     rows = []
+    valid = load_valid_ids()
     files = sorted(glob.glob(os.path.join(ORIG, "*")))
     for p in files:
         base = os.path.basename(p)
-        fid, _, title = base.partition("__")
+        fid, title = split_stored(base, valid)
         rec = {"file_id": fid, "filename": title.replace("_", " ") if " " not in title else title,
                "stored_name": base, "path": p, "bytes": os.path.getsize(p)}
         try:

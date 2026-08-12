@@ -10,7 +10,8 @@ import imagehash
 SP = "/tmp/claude-0/-home-user-OpenFIN/2e259a81-ccde-53fc-8059-70cd5c69f215/scratchpad"
 WORK = os.path.join(SP, "work")
 
-NEAR_THRESHOLD = 10   # hamming distance on 64-bit phash
+NEAR_THRESHOLD = 14   # hamming distance on 64-bit phash (14 groups real
+                      # re-shoots; 18 starts merging unrelated frames)
 BURST_SECONDS = 90
 
 ERAS = [
@@ -134,34 +135,30 @@ def main():
             for fid in members:
                 near_map[fid] = f"NEAR_{gi:02d}"
 
-    # bursts: near-dup members shot within BURST_SECONDS of each other
-    byid = {r["file_id"]: r for r in rows}
+    # bursts: consecutive frames shot within BURST_SECONDS of each other.
+    # Keyed on capture time alone - a burst is a moment, not a look-alike.
     burst_map = {}
     bi = 0
-    for root, members in groups.items():
-        if len(members) < 2:
+    timed = sorted([r for r in rows if r.get("est_datetime")], key=lambda r: r["est_datetime"])
+    run = []
+    for r in timed:
+        if not run:
+            run = [r]
             continue
-        timed = sorted([m for m in members if byid[m].get("est_datetime")],
-                       key=lambda m: byid[m]["est_datetime"])
-        run = []
-        for m in timed:
-            if not run:
-                run = [m]
-                continue
-            prev = parse_dt(byid[run[-1]]["est_datetime"])
-            cur = parse_dt(byid[m]["est_datetime"])
-            if prev and cur and abs((cur - prev).total_seconds()) <= BURST_SECONDS:
-                run.append(m)
-            else:
-                if len(run) > 1:
-                    bi += 1
-                    for x in run:
-                        burst_map[x] = f"BURST_{bi:02d}"
-                run = [m]
-        if len(run) > 1:
-            bi += 1
-            for x in run:
-                burst_map[x] = f"BURST_{bi:02d}"
+        prev = parse_dt(run[-1]["est_datetime"])
+        cur = parse_dt(r["est_datetime"])
+        if prev and cur and 0 <= (cur - prev).total_seconds() <= BURST_SECONDS:
+            run.append(r)
+        else:
+            if len(run) > 1:
+                bi += 1
+                for x in run:
+                    burst_map[x["file_id"]] = f"BURST_{bi:02d}"
+            run = [r]
+    if len(run) > 1:
+        bi += 1
+        for x in run:
+            burst_map[x["file_id"]] = f"BURST_{bi:02d}"
 
     for r in rows:
         r["duplicate_group"] = exact_map.get(r["file_id"], "")
