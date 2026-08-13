@@ -19,16 +19,37 @@ templates, no script fonts. If it looks like a template, delete it.
 
 ---
 
-## 0. Before you open Canva (20 minutes)
+## 0. Before you open Canva
 
-1. **Download the 109 files.** Every path and Drive URL is in
-   `FINAL_PHOTO_MANIFEST.csv` (`drive_path`, `drive_url`). They live in two
-   folders: `01- DIGITAL PHOTOS 2013-2026` (74 files) and
-   `02 - OLD PHOTOS 2003-2013` (35 files).
-2. **Rename them by sequence number before uploading** — `001_`, `002_`, `003_`…
-   Canva's uploads panel sorts unhelpfully and you have 110 slots to place. This
-   single step saves about an hour.
-3. **Fix four rotated scans first**, in any image viewer. They were scanned the
+**This is already done for you.** A new folder has been created in your Drive:
+
+> **`15 / 03 - FINAL CUT (upload in this order)`**
+> https://drive.google.com/drive/folders/1jq9mtGKL8DoYQD_yCm_5KUAyeTlpXJ7h
+
+It contains all **110 slots as copies, already renamed in build order**:
+
+```
+001_ch1_2000_couple_HERO.jpg
+003_ch1_2000_couple.jpg
+...
+110_ch7_2023_HER-ALONE_HERO.jpg
+...
+119_ch7_2022_couple_FINAL-FRAME.jpg
+```
+
+Each name carries `sequence _ chapter _ year _ who`, and `_HERO` on the 34
+frames that get the long holds. Download the whole folder as one zip and upload
+it to Canva in one go — it will sort into build order by itself. Numbers are
+**not** contiguous (002, 013, 033… are the text cards), which is correct.
+
+**Your originals were not touched.** These are copies; nothing in
+`01- DIGITAL PHOTOS` or `02 - OLD PHOTOS` was renamed, moved or modified. The
+reprise frame appears twice on purpose, as `001_` and `099_…_REPRISE`, so you can
+place every file in order without thinking about it.
+
+Two things still to do by hand:
+
+1. **Fix four rotated scans**, in any image viewer. They were scanned the
    wrong way up and Canva will not fix them for you:
 
    | seq | file | fix |
@@ -38,9 +59,10 @@ templates, no script fonts. If it looks like a template, delete it.
    | 030 | `808239495.070762.jpg` | rotate 180° — the graduation frame, scanned upside down |
    | 034 | `808239734.733836.jpg` | rotate and straighten — the house |
 
-4. **Note:** file `808237311.073606.jpg` is used **twice** — as sequence 001 at
-   0:00 and again as sequence 099 at 6:48. That is the lacrosse callback and it
-   is intentional. Upload it once, place it twice.
+   (In the new folder these are `021_…`, `029_…`, `030_…` and `034_…`.)
+
+2. **Apply the old-photograph grade** to the 35 scans — see §7. Everything with
+   a `ch1` or `ch2` prefix, plus `034`, is a scan.
 
 ---
 
@@ -165,9 +187,32 @@ For each vertical slot:
 Build this once, then **duplicate that page** as your template for all 64
 vertical slots and swap the two images each time. Do not rebuild it 64 times.
 
-**One caution:** sequence 117 (`IMG_7293.JPG`, the balcony) is only 880 px wide.
-At full frame height it will be soft. If it bothers you, scale it to 900 px tall
-instead of 1080 and let more of the blurred background show.
+### Ten frames that will go soft at full height
+
+Most of the archive is big enough. These ten are not, and — awkwardly — several
+of them are Chapter 7 heroes with the longest holds in the film, where softness
+shows most:
+
+| seq | pixels | hold | fix |
+|---|---|---|---|
+| 044 | 960×1280 | 4.0s | scale to 950 px tall, not 1080 |
+| 046 | 960×1280 | 5.0s | scale to 950 px tall |
+| 059 | 1334×1000 | 3.5s | fine at full height |
+| 060 | 712×1062 | 3.0s | scale to 850 px tall |
+| 061 | 1172×1334 | 4.5s | fine at full height |
+| 074 | 648×1334 | 1.8s | short hold, leave it |
+| 101 | 1165×769 | 2.5s | short hold, leave it |
+| **113** | 648×1334 | 4.5s | **scale to 900 px tall** |
+| **114** | 960×1280 | 6.0s | **scale to 950 px tall — this is a hero** |
+| **117** | 880×1168 | 7.0s | **scale to 900 px tall — this is a hero** |
+
+The rule: when a photograph is smaller than the frame, **do not stretch it to
+fill the height**. Let it sit smaller on its own blurred backdrop. A slightly
+smaller sharp photograph always looks better than a full-height blurry one, and
+on the blurred-fill layout nobody can tell the difference in size.
+
+None of these are worth cutting. They are all in the film because of what is in
+them, not how they were shot.
 
 ---
 
